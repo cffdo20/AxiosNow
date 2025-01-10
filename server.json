@@ -1,0 +1,70 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Product 1",
+      "description": "Description for product 1",
+      "price": 10.99
+    },
+    {
+      "id": 2,
+      "name": "Product 2",
+      "description": "Description for product 2",
+      "price": 12.99
+    },
+    {
+      "id": 3,
+      "name": "Product 3",
+      "description": "Description for product 3",
+      "price": 15.99
+    },
+    {
+      "id": 4,
+      "name": "Product 4",
+      "description": "Description for product 4",
+      "price": 9.99
+    },
+    {
+      "id": 5,
+      "name": "Product 5",
+      "description": "Description for product 5",
+      "price": 20.99
+    },
+    {
+      "name": "Produto 6",
+      "description": "Produto 6 desc",
+      "price": 21,
+      "id": 6
+    },
+    {
+      "name": "George",
+      "description": "Produto george",
+      "price": 1,
+      "id": 7
+    },
+    {
+      "name": "Diogo",
+      "description": "Produto Diogo",
+      "price": 2,
+      "id": 8
+    },
+    {
+      "name": "Cristian",
+      "description": "Produto Cristian",
+      "price": 5,
+      "id": 9
+    },
+    {
+      "name": "Harley",
+      "description": "Produto Harley",
+      "price": 0,
+      "id": 10
+    },
+    {
+      "name": "Produto 9",
+      "description": "descricao",
+      "price": 12,
+      "id": 11
+    }
+  ]
+}
