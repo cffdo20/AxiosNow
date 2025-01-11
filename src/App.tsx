@@ -1,12 +1,14 @@
-import ExampleComponent from "./components/Exemplo";
+import "./App.css";
+import ExampleComponent from "./components/Exemplo/Exemplo";
+import DataTable from "./components/Table";
 
 function App() {
   return (
-    <div>
-      <h1>My React Vite App</h1>
+    <div className="containerApp">
       <ExampleComponent />
+      <DataTable />
     </div>
   );
 }
 
-export default App
+export default App;
