@@ -1,6 +1,6 @@
 import "./App.css";
-import ExampleComponent from "./components/Exemplo/Exemplo";
-import DataTable from "./components/Table";
+import { ExampleComponent } from "./components/Exemplo";
+import { DataTable } from "./components/Table";
 
 function App() {
   return (

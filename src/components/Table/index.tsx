@@ -1,7 +1,7 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { Button } from "@mui/material";
+import { useEffect, useState } from "react";
+import { api } from "../../services/api";
 import "./styles.css";
-import { Button } from '@mui/material';
 
 interface Person {
   id: number;
@@ -10,7 +10,7 @@ interface Person {
   areaInteresse: string;
 }
 
-const DataTable: React.FC = () => {
+export function DataTable() {
   const [data, setData] = useState<Person[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,12 +18,9 @@ const DataTable: React.FC = () => {
   const [searchNome, setSearchNome] = useState<string>(""); // Filtro por nome
   const [searchInteresse, setSearchInteresse] = useState<string>(""); // Filtro por interesse
 
-
   const fetchData = async () => {
     try {
-      const response = await axios.get<Person[]>(
-        "http://localhost:8080/api/pessoas"
-      );
+      const response = await api.get<Person[]>("/pessoas");
       setData(response.data);
       setError(null);
     } catch (err) {
@@ -44,8 +41,8 @@ const DataTable: React.FC = () => {
   const handleDelete = async (matricula: string) => {
     console.log(matricula);
     try {
-      await axios.delete(`http://localhost:8080/api/pessoas${matricula}`);
-      setRefreshFlag(prev => !prev);
+      await api.delete(`/pessoas${matricula}`);
+      setRefreshFlag((prev) => !prev);
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message);
@@ -56,9 +53,10 @@ const DataTable: React.FC = () => {
   };
 
   // Filtro combinado de nome e interesse
-  const filteredData = data.filter((person) =>
-    person.nome.toLowerCase().includes(searchNome.toLowerCase()) &&
-    person.areaInteresse.toLowerCase().includes(searchInteresse.toLowerCase())
+  const filteredData = data.filter(
+    (person) =>
+      person.nome.toLocaleLowerCase().includes(searchNome.toLowerCase()) &&
+      person.areaInteresse.toLowerCase().includes(searchInteresse.toLowerCase())
   );
 
   if (loading) {
@@ -118,6 +116,4 @@ const DataTable: React.FC = () => {
       </table>
     </div>
   );
-};
-
-export default DataTable;
+}
