@@ -13,6 +13,7 @@ const DataTable: React.FC = () => {
   const [data, setData] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [searchInput, setSearchInput] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -33,7 +34,7 @@ const DataTable: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [data]);
 
   const handleDelete = async (id: number) => {
     try {
@@ -48,6 +49,10 @@ const DataTable: React.FC = () => {
     }
   };
 
+  const filteredData = data.filter((product) =>
+    product.name.toLowerCase().includes(searchInput.toLowerCase())
+  );
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -57,35 +62,44 @@ const DataTable: React.FC = () => {
   }
 
   return (
-    <table className="data-table">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((product) => (
-          <tr key={product.id}>
-            <td>{product.id}</td>
-            <td>{product.name}</td>
-            <td>{product.description}</td>
-            <td>{product.price}</td>
-            <td>
-              <button
-                className="btn-danger"
-                onClick={() => handleDelete(product.id)}
-              >
-                Delete
-              </button>
-            </td>
+    <div>
+      <input
+        type="text"
+        placeholder="Search by name"
+        value={searchInput}
+        onChange={(e) => setSearchInput(e.target.value)}
+        className="search-input"
+      />
+      <table className="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Actions</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {filteredData.map((product) => (
+            <tr key={product.id}>
+              <td>{product.id}</td>
+              <td>{product.name}</td>
+              <td>{product.description}</td>
+              <td>{product.price}</td>
+              <td>
+                <button
+                  className="btn btn-danger"
+                  onClick={() => handleDelete(product.id)}
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

@@ -1,5 +1,5 @@
 .data-table {
-  width: 50%;
+  width: 100%;
   border-collapse: collapse;
   margin: 20px 0;
   font-size: 18px;
@@ -52,4 +52,18 @@
 
 .btn-danger:hover {
   background-color: #c82333;
+}
+
+.tableContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vh;
+}
+
+.searchInput {
+  width: 100%;
+  height: 3vh;
 }

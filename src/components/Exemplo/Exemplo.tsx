@@ -3,10 +3,16 @@ import { useState } from "react";
 import "./styles.css";
 
 const ExampleComponent = () => {
+  // Estados para criação de produtos
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
 
+  // Estados para busca de produtos
+  const [searchName, setSearchName] = useState("");
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+
+  // Função para criar produto
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newProduct = {
@@ -21,7 +27,7 @@ const ExampleComponent = () => {
         newProduct
       );
       console.log("Product created:", response.data);
-      // Clear form fields
+      // Limpa os campos do formulário
       setName("");
       setDescription("");
       setPrice("");
@@ -30,21 +36,27 @@ const ExampleComponent = () => {
     }
   };
 
-  // const handleDelete = async () => {
-  //   try {
-  //     const response = await axios.delete(
-  //       `http://localhost:3001/products/${productId}`
-  //     );
-  //     console.log("Product deleted:", response.data);
-  //     // Clear productId field
-  //     setProductId("");
-  //   } catch (error) {
-  //     console.error("Error deleting product:", error);
-  //   }
-  // };
+  // Função para buscar produtos (filtro no front-end)
+  const handleSearch = async () => {
+    try {
+      // Obtém todos os produtos
+      const response = await axios.get("http://localhost:3001/products");
+
+      // Filtra localmente pelo nome
+      const filteredProducts = response.data.filter((product: any) =>
+        product.name.toLowerCase().includes(searchName.toLowerCase())
+      );
+
+      setSearchResults(filteredProducts);
+    } catch (error) {
+      console.error("Error searching products:", error);
+      setSearchResults([]);
+    }
+  };
 
   return (
     <div className="container">
+      {/* Seção de criação de produto */}
       <h2>Criar novo produto</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
@@ -81,21 +93,48 @@ const ExampleComponent = () => {
           />
         </div>
         <button type="submit" className="btn btn-primary">
-          Create Product
+          Criar Produto
         </button>
       </form>
 
-      {/* <h2>Delete Product</h2>
-      <div>
-        <label>Product ID:</label>
-        <input
-          type="text"
-          value={productId}
-          onChange={(e) => setProductId(e.target.value)}
-          required
-        />
-        <button onClick={handleDelete}>Delete Product</button>
-      </div> */}
+      {/* Seção de busca de produtos */}
+      <div className="search-section">
+        <h2>Buscar Produtos</h2>
+        <div className="form-group">
+          <label htmlFor="searchName">Nome do Produto</label>
+          <input
+            id="searchName"
+            type="text"
+            value={searchName}
+            onChange={(e) => setSearchName(e.target.value)}
+            className="form-control"
+            placeholder="Digite parte do nome"
+          />
+        </div>
+        <button
+          type="button"
+          onClick={handleSearch}
+          className="btn btn-secondary"
+        >
+          Buscar
+        </button>
+
+        {/* Exibição dos resultados */}
+        {searchResults.length > 0 && (
+          <div className="search-results mt-3">
+            <h3>Resultados ({searchResults.length})</h3>
+            <div className="list-group">
+              {searchResults.map((product) => (
+                <div key={product.id} className="list-group-item">
+                  <h5 className="mb-1">{product.name}</h5>
+                  <p className="mb-1">{product.description}</p>
+                  <small>Preço: R$ {product.price.toFixed(2)}</small>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
