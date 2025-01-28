@@ -1,32 +1,54 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./styles.css";
 
 const ExampleComponent = () => {
+  const [matricula, setMatricula] = useState(""); 
   const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [price, setPrice] = useState("");
+  const [interests, setInterests] = useState([]) 
+  const [selectedInterest, setSelectedInterest] = useState("")
+
+  /* useEffect para obter a lista de interesses na montagem do componente. */
+  useEffect(() =>{ 
+    const fetchInterests = async() => {
+      try{
+        const response = await axios.get("10.100.39.138:8080/api/interesses"); 
+        setInterests(response.data)
+        console.log(response.data)
+      }catch(error){
+        console.log("Erro ao buscar os interesses", error)
+      }
+    }
+
+    fetchInterests(); 
+
+  },[]) //executa apenas ao montar o componente. 
+
+  /* handleChange para atualizar o estado */
+  const handleChange = (e) => {
+    setSelectedInterest(e.target.value)
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newProduct = {
+    const newPerson = {
+      matricula,
       name,
-      description,
-      price: parseFloat(price),
+      selectedInterest
     };
 
     try {
       const response = await axios.post(
-        "http://localhost:3001/products",
-        newProduct
+        "10.100.39.138:8080/api/pessoas",
+        newPerson
       );
-      console.log("Product created:", response.data);
-      // Clear form fields
+      console.log("Pessoa criada!:", response.data);
+      // Limpando os campos do Form
+      setMatricula("");
       setName("");
-      setDescription("");
-      setPrice("");
+      setSelectedInterest("");
     } catch (error) {
-      console.error("Error creating product:", error);
+      console.error("Houve um erro criando a pessoa:", error);
     }
   };
 
@@ -45,12 +67,23 @@ const ExampleComponent = () => {
 
   return (
     <div className="container">
-      <h2>Criar novo produto</h2>
+      <h2>Criar nova Pessoa</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label htmlFor="productName">Nome</label>
+          <label htmlFor="personMatricula">Matrícula</label>
           <input
-            id="productName"
+            id="personMatricula"
+            type="text"
+            value={matricula}
+            onChange={(e) => setMatricula(e.target.value)}
+            required
+            className="form-control"
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="personName">Nome</label>
+          <input
+            id="personName"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -58,19 +91,17 @@ const ExampleComponent = () => {
             className="form-control"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="productDescription">Descrição</label>
-          <input
-            id="productDescription"
-            type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            required
-            className="form-control"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="productPrice">Preço</label>
+        {/* Tipo select */}
+        <label htmlFor="interests">Escolha um interesse:</label>
+        <select id="interests" value = {selectedInterest} onChange = {handleChange}>
+          <option value="" disabled> -- Selecione um interesse --</option>
+          {interests.map((interest) => (
+            <option key = {interest.nomeArea} value = {interest.nomeArea}> {interest.nomeArea}</option>
+          ))}
+        </select> 
+        
+        {/* <div className="form-group">
+          <label htmlFor="personInterest">Área de I</label>
           <input
             id="productPrice"
             type="number"
@@ -79,10 +110,12 @@ const ExampleComponent = () => {
             required
             className="form-control"
           />
+        </div> */}
+        <div className="btn-container">
+          <button type="submit" className="btn btn-primary">
+            Cadastrar Pessoa
+          </button>
         </div>
-        <button type="submit" className="btn btn-primary">
-          Create Product
-        </button>
       </form>
 
       {/* <h2>Delete Product</h2>

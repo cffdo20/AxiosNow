@@ -2,22 +2,24 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "./styles.css";
 
-interface Product {
+import { Button } from '@mui/material'
+
+
+interface Person {
   id: number;
-  name: string;
-  description: string;
-  price: number;
+  matricula: string;
+  interest: string;
 }
 
 const DataTable: React.FC = () => {
-  const [data, setData] = useState<Product[]>([]);
+  const [data, setData] = useState<Person[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<Product[]>(
+        const response = await axios.get<Person[]>(
           "http://localhost:3001/products"
         );
         setData(response.data);
@@ -25,7 +27,7 @@ const DataTable: React.FC = () => {
         if (err instanceof Error) {
           setError(err.message);
         } else {
-          setError("An unknown error occurred");
+          setError("Ocorreu um erro");
         }
       } finally {
         setLoading(false);
@@ -43,7 +45,7 @@ const DataTable: React.FC = () => {
       if (err instanceof Error) {
         setError(err.message);
       } else {
-        setError("An unknown error occurred");
+        setError("Ocorreu um erro");
       }
     }
   };
@@ -61,26 +63,24 @@ const DataTable: React.FC = () => {
       <thead>
         <tr>
           <th>ID</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th>Actions</th>
+          <th>Matricula</th>
+          <th>Nome</th>
+          <th>Interesse</th>
         </tr>
       </thead>
       <tbody>
-        {data.map((product) => (
-          <tr key={product.id}>
-            <td>{product.id}</td>
-            <td>{product.name}</td>
-            <td>{product.description}</td>
-            <td>{product.price}</td>
+        {data.map((person) => (
+          <tr key={person.id}>
+            <td>{person.id}</td>
+            <td>{person.matricula}</td>
+            <td>{person.interest}</td>
             <td>
-              <button
+              <Button variant = "contained"
                 className="btn-danger"
-                onClick={() => handleDelete(product.id)}
+                onClick={() => handleDelete(person.id)}
               >
                 Delete
-              </button>
+              </Button>
             </td>
           </tr>
         ))}
