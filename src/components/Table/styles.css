@@ -1,13 +1,15 @@
 .data-table {
-  width: 50%;
+  font-family: 'Inter', sans-serif; 
+  /* width: 50%; */
   border-collapse: collapse;
   margin: 20px 0;
   font-size: 18px;
   text-align: left;
 }
 
+
 .data-table thead tr {
-  background-color: #009879;
+  background-color: #176B87;
   color: #ffffff;
   text-align: left;
   font-weight: bold;
@@ -19,11 +21,17 @@
 }
 
 .data-table tbody tr {
-  border-bottom: 1px solid #dddddd;
+  background-color: #fff;
+  border-bottom: 1px solid #cacacc;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.data-table tbody tr:hover{
+  background-color: #E7E9EB;
 }
 
 .data-table tbody tr:nth-of-type(even) {
-  background-color: #f3f3f3;
+  background-color: #fff;
 }
 
 .data-table tbody tr:last-of-type {
@@ -38,7 +46,7 @@
 .btn-danger {
   display: inline-block;
   padding: 10px 20px;
-  font-size: 16px;
+  font-size: 0.8rem;
   font-weight: bold;
   text-align: center;
   text-decoration: none;
@@ -53,3 +61,15 @@
 .btn-danger:hover {
   background-color: #c82333;
 }
+
+.search-input{
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: inherit; 
+  font-size: 1rem; 
+  margin-right: 1rem; 
+  outline: none; 
+}
+

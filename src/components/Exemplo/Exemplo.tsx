@@ -13,7 +13,7 @@ const ExampleComponent = () => {
   useEffect(() =>{ 
     const fetchInterests = async() => {
       try{
-        const response = await axios.get("http://10.100.38.226:8080/api/interesses"); 
+        const response = await axios.get("http://localhost:8080/api/interesses"); 
         setInterests(response.data)
         console.log(response.data)
       }catch(error){
@@ -41,7 +41,7 @@ const ExampleComponent = () => {
     try {
       console.log(newPerson)
       const response = await axios.post(
-        "http://10.100.38.226:8080/api/pessoas",
+        "http://localhost:8080/api/pessoas",
         newPerson
       );
       console.log("Pessoa criada!:", response.data);
@@ -54,22 +54,9 @@ const ExampleComponent = () => {
     }
   };
 
-  // const handleDelete = async () => {
-  //   try {
-  //     const response = await axios.delete(
-  //       `http://localhost:3001/products/${productId}`
-  //     );
-  //     console.log("Product deleted:", response.data);
-  //     // Clear productId field
-  //     setProductId("");
-  //   } catch (error) {
-  //     console.error("Error deleting product:", error);
-  //   }
-  // };
-
   return (
     <div className="container">
-      <h2>Criar nova Pessoa</h2>
+      <h2>Criar novo Aluno</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="personMatricula">Matrícula</label>
@@ -111,37 +98,12 @@ const ExampleComponent = () => {
 
         </div>
         
-         
-        
-        {/* <div className="form-group">
-          <label htmlFor="personInterest">Área de I</label>
-          <input
-            id="productPrice"
-            type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            required
-            className="form-control"
-          />
-        </div> */}
         <div className="btn-container">
           <button type="submit" className="btn btn-primary">
             Cadastrar Pessoa
           </button>
         </div>
       </form>
-
-      {/* <h2>Delete Product</h2>
-      <div>
-        <label>Product ID:</label>
-        <input
-          type="text"
-          value={productId}
-          onChange={(e) => setProductId(e.target.value)}
-          required
-        />
-        <button onClick={handleDelete}>Delete Product</button>
-      </div> */}
     </div>
   );
 };

@@ -21,7 +21,7 @@ const DataTable: React.FC = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get<Person[]>(
-        "http://10.100.38.226:8080/api/pessoas"
+        "http://localhost:8080/api/pessoas"
       );
       setData(response.data);
       setError(null);
@@ -43,7 +43,7 @@ const DataTable: React.FC = () => {
   const handleDelete = async (matricula: string) => {
     console.log(matricula);
     try {
-      await axios.delete(`http://10.100.38.226:8080/api/pessoas/${matricula}`);
+      await axios.delete(`http://localhost:8080/api/pessoas${matricula}`);
       setRefreshFlag(prev => !prev);
     } catch (err) {
       if (err instanceof Error) {
@@ -90,7 +90,7 @@ const DataTable: React.FC = () => {
       <table className="data-table">
         <thead>
           <tr>
-            <th>Matricula</th>
+            <th>Matrícula</th>
             <th>Nome</th>
             <th>Interesse</th>
             <th>Ações</th>
