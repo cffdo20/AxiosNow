@@ -2,12 +2,27 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./styles.css";
 
+
+/* Interfaces */
+interface Interesse{
+  nomeArea: string; 
+}
+
+interface Pessoa{
+  matricula: string; 
+  nome: string; 
+  areaInteresse: string;
+}
+
+
 const ExampleComponent = () => {
   /* useStates */
   const [matricula, setMatricula] = useState(""); 
   const [nome, setName] = useState("");
-  const [interests, setInterests] = useState([]) 
+  const [interests, setInterests] = useState<Interesse[]>([]) 
   const [areaInteresse, setAreaInteresse] = useState("")
+
+  const [pessoas, setPessoas] = useState<Pessoa[]>([])
 
   /* useEffect: para obter a lista de interesses na montagem do componente. */
   useEffect(() =>{ 
@@ -25,9 +40,29 @@ const ExampleComponent = () => {
 
   },[]) //array de dependências: executa apenas na montagem inicial do componente. 
 
+  // useEffect para buscar as pessoas
+  useEffect(() => {
+    const fetchPessoas = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/pessoas");
+        setPessoas(response.data);
+      } catch (error) {
+        console.error("Erro ao buscar as pessoas", error);
+      }
+    };
+
+    fetchPessoas();
+  }, []);
+
+  /* Função para filtrar pessoas com base no interesse selecionado */
+  const filteredPessoas = areaInteresse
+  ? pessoas.filter((pessoa) => pessoa.areaInteresse === areaInteresse)
+  :pessoas
+
   /* handleChange para atualizar o estado */
   const handleChange = (e:React.ChangeEvent<HTMLSelectElement>) => { 
     setAreaInteresse(e.target.value)
+
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -95,6 +130,18 @@ const ExampleComponent = () => {
         )
         
         }
+
+        {/* Exibição das pessoas filtradas */}
+      <h3>Pessoas com o interesse: {areaInteresse || "Todos"}</h3>
+      <ul>
+        {filteredPessoas.length > 0 ? (
+          filteredPessoas.map((pessoa) => (
+            <li key={pessoa.matricula}>{pessoa.nome}</li>
+          ))
+        ) : (
+          <li>Nenhuma pessoa encontrada com esse interesse.</li>
+        )}
+      </ul>
 
         </div>
         

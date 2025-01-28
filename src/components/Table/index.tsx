@@ -18,6 +18,7 @@ const DataTable: React.FC = () => {
   const [searchNome, setSearchNome] = useState<string>(""); // Filtro por nome
   const [searchInteresse, setSearchInteresse] = useState<string>(""); // Filtro por interesse
 
+
   const fetchData = async () => {
     try {
       const response = await axios.get<Person[]>(
