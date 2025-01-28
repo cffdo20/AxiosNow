@@ -3,16 +3,17 @@ import { useEffect, useState } from "react";
 import "./styles.css";
 
 const ExampleComponent = () => {
+  /* useStates */
   const [matricula, setMatricula] = useState(""); 
-  const [name, setName] = useState("");
+  const [nome, setName] = useState("");
   const [interests, setInterests] = useState([]) 
-  const [selectedInterest, setSelectedInterest] = useState("")
+  const [areaInteresse, setAreaInteresse] = useState("")
 
-  /* useEffect para obter a lista de interesses na montagem do componente. */
+  /* useEffect: para obter a lista de interesses na montagem do componente. */
   useEffect(() =>{ 
     const fetchInterests = async() => {
       try{
-        const response = await axios.get("10.100.39.138:8080/api/interesses"); 
+        const response = await axios.get("http://10.100.38.226:8080/api/interesses"); 
         setInterests(response.data)
         console.log(response.data)
       }catch(error){
@@ -22,31 +23,32 @@ const ExampleComponent = () => {
 
     fetchInterests(); 
 
-  },[]) //executa apenas ao montar o componente. 
+  },[]) //array de dependências: executa apenas na montagem inicial do componente. 
 
   /* handleChange para atualizar o estado */
-  const handleChange = (e) => {
-    setSelectedInterest(e.target.value)
+  const handleChange = (e:React.ChangeEvent<HTMLSelectElement>) => { 
+    setAreaInteresse(e.target.value)
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newPerson = {
+      nome,
       matricula,
-      name,
-      selectedInterest
-    };
+      areaInteresse
+    }; 
 
     try {
+      console.log(newPerson)
       const response = await axios.post(
-        "10.100.39.138:8080/api/pessoas",
+        "http://10.100.38.226:8080/api/pessoas",
         newPerson
       );
       console.log("Pessoa criada!:", response.data);
       // Limpando os campos do Form
       setMatricula("");
       setName("");
-      setSelectedInterest("");
+      setAreaInteresse("");
     } catch (error) {
       console.error("Houve um erro criando a pessoa:", error);
     }
@@ -85,20 +87,31 @@ const ExampleComponent = () => {
           <input
             id="personName"
             type="text"
-            value={name}
+            value={nome}
             onChange={(e) => setName(e.target.value)}
             required
             className="form-control"
           />
         </div>
-        {/* Tipo select */}
-        <label htmlFor="interests">Escolha um interesse:</label>
-        <select id="interests" value = {selectedInterest} onChange = {handleChange}>
+        {/* Select para área de interesse */}
+        <div>
+        {interests &&(
+          <>
+          <label htmlFor="interests">Escolha um interesse:</label>
+        <select id="interests" value = {areaInteresse} onChange = {handleChange}>
           <option value="" disabled> -- Selecione um interesse --</option>
-          {interests.map((interest) => (
-            <option key = {interest.nomeArea} value = {interest.nomeArea}> {interest.nomeArea}</option>
+          {interests.map((areaInteresse) => (
+            <option key = {areaInteresse.nomeArea} value = {areaInteresse.nomeArea}> {areaInteresse.nomeArea}</option>
           ))}
-        </select> 
+        </select>
+          </>
+        )
+        
+        }
+
+        </div>
+        
+         
         
         {/* <div className="form-group">
           <label htmlFor="personInterest">Área de I</label>

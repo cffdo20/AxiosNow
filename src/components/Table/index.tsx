@@ -7,8 +7,9 @@ import { Button } from '@mui/material'
 
 interface Person {
   id: number;
+  nome: string; 
   matricula: string;
-  interest: string;
+  areaInteresse: string;
 }
 
 const DataTable: React.FC = () => {
@@ -20,7 +21,7 @@ const DataTable: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<Person[]>(
-          "http://localhost:3001/products"
+          "http://10.100.38.226:8080/api/pessoas"
         );
         setData(response.data);
       } catch (err) {
@@ -35,11 +36,11 @@ const DataTable: React.FC = () => {
     };
 
     fetchData();
-  }, []);
+  }, [data]);
 
-  const handleDelete = async (id: number) => {
+  /* const handleDelete = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3001/products/${id}`);
+      await axios.delete(`http://localhost:3001/pessoas/${id}`);
       setData(data.filter((item) => item.id !== id));
     } catch (err) {
       if (err instanceof Error) {
@@ -48,7 +49,7 @@ const DataTable: React.FC = () => {
         setError("Ocorreu um erro");
       }
     }
-  };
+  }; */
 
   if (loading) {
     return <div>Loading...</div>;
@@ -62,7 +63,6 @@ const DataTable: React.FC = () => {
     <table className="data-table">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Matricula</th>
           <th>Nome</th>
           <th>Interesse</th>
@@ -70,10 +70,10 @@ const DataTable: React.FC = () => {
       </thead>
       <tbody>
         {data.map((person) => (
-          <tr key={person.id}>
-            <td>{person.id}</td>
+          <tr key={person.matricula}>
             <td>{person.matricula}</td>
-            <td>{person.interest}</td>
+            <td>{person.nome}</td>
+            <td>{person.areaInteresse}</td>
             <td>
               <Button variant = "contained"
                 className="btn-danger"
