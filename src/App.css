@@ -1,0 +1,12 @@
+body{
+  font-family: 'Inter', sans-serif; 
+}
+.containerApp {
+  display: flex;
+  justify-content: center;
+  gap: 100px;
+  align-items: center;
+  height: 100vh;
+  background-color: #F5F5F5;
+  
+}

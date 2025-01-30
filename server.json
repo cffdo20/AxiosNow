@@ -1,0 +1,84 @@
+{
+  "pessoas": [
+    {
+      "id": "1",
+      "nome": "Cristian Franklin Feitoza de Oliveira",
+      "matricula": "2023003580",
+      "areaInteresse": "Machine Learning"
+    },
+    {
+      "id": "2",
+      "nome": "George Anderson Batista Valente",
+      "matricula": "2023004309",
+      "areaInteresse": "Dev Web: Front-end"
+    },
+    {
+      "id": "3",
+      "nome": "Harley Leite Silva",
+      "matricula": "2023005600",
+      "areaInteresse": "Dev Web: Front-end"
+    },
+    {
+      "id": "4",
+      "nome": "José Diogo Dutra Pacheco",
+      "matricula": "2023005290",
+      "areaInteresse": "Dev Web: Back-end"
+    },
+    {
+      "id": "5",
+      "nome": "Ayrton",
+      "matricula": "2023005500",
+      "areaInteresse": "Cloud e DevOps"
+    },
+    {
+      "id": "6",
+      "nome": "Tarcisio",
+      "matricula": "2023",
+      "areaInteresse": "Ciência de Dados"
+    },
+    {
+      "nome": "Diogo",
+      "matricula": "123",
+      "areaInteresse": "Dev Web: Front-end",
+      "id": "Zvi_WSP"
+    }
+  ],
+  "interesses": [
+    {
+      "id": "1",
+      "nomeArea": "Banco de Dados"
+    },
+    {
+      "id": "2",
+      "nomeArea": "Cibersegurança"
+    },
+    {
+      "id": "3",
+      "nomeArea": "Ciência de Dados"
+    },
+    {
+      "id": "4",
+      "nomeArea": "Cloud e DevOps"
+    },
+    {
+      "id": "5",
+      "nomeArea": "Dev Mobile"
+    },
+    {
+      "id": "6",
+      "nomeArea": "Dev Web: Back-end"
+    },
+    {
+      "id": "7",
+      "nomeArea": "Dev Web: Front-end"
+    },
+    {
+      "id": "8",
+      "nomeArea": "Jogos Digitais"
+    },
+    {
+      "id": "9",
+      "nomeArea": "Machine Learning"
+    }
+  ]
+}
