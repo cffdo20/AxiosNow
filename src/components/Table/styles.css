@@ -1,5 +1,5 @@
 .data-table {
-  font-family: 'Inter', sans-serif; 
+  font-family: "Inter", sans-serif;
   /* width: 50%; */
   border-collapse: collapse;
   margin: 20px 0;
@@ -7,9 +7,8 @@
   text-align: left;
 }
 
-
 .data-table thead tr {
-  background-color: #176B87;
+  background-color: #176b87;
   color: #ffffff;
   text-align: left;
   font-weight: bold;
@@ -17,7 +16,7 @@
 
 .data-table th,
 .data-table td {
-  font-size: 1rem; 
+  font-size: 1rem;
   padding: 12px 15px;
 }
 
@@ -27,8 +26,8 @@
   transition: background-color 0.3s ease-in-out;
 }
 
-.data-table tbody tr:hover{
-  background-color: #E7E9EB;
+.data-table tbody tr:hover {
+  background-color: #e7e9eb;
 }
 
 .data-table tbody tr:nth-of-type(even) {
@@ -63,14 +62,27 @@
   background-color: #c82333;
 }
 
-.search-input{
+.search-input {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  font-family: inherit; 
-  font-size: 1rem; 
-  margin-right: 1rem; 
-  outline: none; 
+  font-family: inherit;
+  font-size: 1rem;
+  margin-right: 1rem;
+  outline: none;
 }
 
+.search-input-dialog {
+  margin-top: 1vh;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  font-family: inherit;
+  font-size: 1rem;
+  margin-right: 1rem;
+  outline: none;
+  overflow-x: hidden;
+}

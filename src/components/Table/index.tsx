@@ -48,6 +48,7 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
   const [currentEditData, setCurrentEditData] = useState<Person | null>(null); // Estado para armazenar os dados da pessoa em edição
 
   // Função para buscar os dados das pessoas na API
+  // essa parte vai ser implementada
   const fetchData = async () => {
     try {
       // Chamada GET utilizando Axios para buscar a lista de pessoas
@@ -67,6 +68,7 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
 
   // useEffect para buscar os interesses ao montar o componente
   useEffect(() => {
+    // essa parte vai ser implementada
     const fetchInterests = async () => {
       try {
         // Chamada GET utilizando Axios para buscar a lista de interesses
@@ -92,12 +94,13 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
   };
 
   // Função para salvar as alterações feitas na edição
+  // essa parte vai ser implementada
   const handleSaveEdit = async () => {
     if (!currentEditData) return;
 
     try {
       // Chamada PUT utilizando Axios para atualizar os dados da pessoa
-      await api.put(`/pessoas/${currentEditData.id}`, currentEditData); //mudar o .id para .matricula quando rodar na API do Diogo.
+      await api.put(`/pessoas/${currentEditData.matricula}`, currentEditData); //mudar o .id para .matricula quando rodar na API do Diogo.
       setEditModalOpen(false); // Fecha o modal de edição
       setRefreshFlag((prev) => !prev); // Atualiza a flag de atualização para buscar os dados novamente
     } catch (err) {
@@ -107,10 +110,11 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
   };
 
   // Função para deletar uma pessoa pelo número de matrícula
-  const handleDelete = async (id: string) => {
+  // essa parte vai ser implementada
+  const handleDelete = async (matricula: string) => {
     try {
       // Chamada DELETE utilizando Axios para deletar a pessoa
-      await api.delete(`/pessoas/${id}`);
+      await api.delete(`/pessoas/${matricula}`);
       setRefreshFlag((prev) => !prev); // Atualiza a flag de atualização para buscar os dados novamente
     } catch (err) {
       if (err instanceof Error) {
@@ -184,7 +188,7 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={() => handleDelete(person.id)} //mudar quando tiver usando a API do Diogo para matricula
+                  onClick={() => handleDelete(person.matricula)} //mudar quando tiver usando a API do Diogo para matricula
                 >
                   <Trash size={20} />
                 </Button>
@@ -200,7 +204,7 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
         fullWidth
       >
         <DialogTitle>Editar Registro</DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ overflow: "hidden" }}>
           {currentEditData && (
             <>
               <TextField
@@ -211,11 +215,9 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
                 value={currentEditData.matricula}
                 disabled
               />
-              <TextField
-                margin="dense"
-                label="Nome"
-                fullWidth
-                variant="standard"
+              <input
+                type="text"
+                placeholder="Pesquisa por nome"
                 value={currentEditData.nome}
                 onChange={(e) =>
                   setCurrentEditData({
@@ -223,6 +225,7 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
                     nome: e.target.value,
                   })
                 }
+                className="search-input-dialog"
               />
 
               <FormControl fullWidth variant="standard" margin="dense">

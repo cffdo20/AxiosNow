@@ -25,6 +25,7 @@ export function ExampleComponent({ onPersonAdded }: ExampleComponentProps) {
 
   /* useEffect: para obter a lista de interesses na montagem do componente. */
   useEffect(() => {
+    //essa parte vai ser implementada
     const fetchInterests = async () => {
       try {
         // Chamada GET utilizando Axios para buscar a lista de interesses
@@ -48,12 +49,14 @@ export function ExampleComponent({ onPersonAdded }: ExampleComponentProps) {
   // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Previne o comportamento padrão do formulário de recarregar a página
+    // essa parte vai ser implementada
     const newPerson = {
       nome,
       matricula,
       areaInteresse,
     };
 
+    // essa parte vai ser implementada
     try {
       console.log(newPerson); // Log dos dados da nova pessoa para depuração
       // Chamada POST utilizando Axios para enviar os dados da nova pessoa para a API
