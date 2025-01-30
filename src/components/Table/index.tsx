@@ -14,7 +14,6 @@ import {
 } from "@mui/material";
 import { PencilLine, Trash } from "phosphor-react";
 import { useEffect, useState } from "react";
-import { api } from "../../services/api"; // Importação da instância Axios configurada
 import "./styles.css";
 
 // Definição de interfaces para tipos de dados
@@ -47,44 +46,18 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
   const [editModalOpen, setEditModalOpen] = useState(false); // Estado para controlar a abertura do modal de edição
   const [currentEditData, setCurrentEditData] = useState<Person | null>(null); // Estado para armazenar os dados da pessoa em edição
 
-  // Função para buscar os dados das pessoas na API
-  // essa parte vai ser implementada
-  const fetchData = async () => {
-    try {
-      // Chamada GET utilizando Axios para buscar a lista de pessoas
-      const response = await api.get<Person[]>("/pessoas");
-      setData(response.data); // Atualiza o estado com os dados recebidos
-      setError(null); // Limpa qualquer erro anterior
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message); // Armazena a mensagem de erro
-      } else {
-        setError("Ocorreu um erro desconhecido"); // Mensagem de erro genérica
-      }
-    } finally {
-      setLoading(false); // Define o estado como carregado
-    }
-  };
+  // Função para buscar os lista de pessoas na API
+  // Bloco de código aqui
 
   // useEffect para buscar os interesses ao montar o componente
   useEffect(() => {
-    // essa parte vai ser implementada
-    const fetchInterests = async () => {
-      try {
-        // Chamada GET utilizando Axios para buscar a lista de interesses
-        const response = await api.get("interesses");
-        setInterests(response.data); // Atualiza o estado com os dados recebidos
-      } catch (error) {
-        console.log("Erro ao buscar os interesses", error); // Log de erro no console
-      }
-    };
-
-    fetchInterests();
+    //  Implementar função paar get interesses
+    // Bloco de código aqui
   }, []);
 
   // useEffect para buscar os dados das pessoas ao montar o componente e ao atualizar a flag de atualização
   useEffect(() => {
-    fetchData();
+    //chamar função que busca lista de pessoas
   }, [refreshFlag]);
 
   // Função para abrir o modal de edição com os dados da pessoa selecionada
@@ -94,36 +67,10 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
   };
 
   // Função para salvar as alterações feitas na edição
-  // essa parte vai ser implementada
-  const handleSaveEdit = async () => {
-    if (!currentEditData) return;
-
-    try {
-      // Chamada PUT utilizando Axios para atualizar os dados da pessoa
-      await api.put(`/pessoas/${currentEditData.matricula}`, currentEditData); //mudar o .id para .matricula quando rodar na API do Diogo.
-      setEditModalOpen(false); // Fecha o modal de edição
-      setRefreshFlag((prev) => !prev); // Atualiza a flag de atualização para buscar os dados novamente
-    } catch (err) {
-      console.error("Erro ao salvar alterações:", err); // Log de erro no console
-      setError("Erro ao salvar alterações"); // Armazena a mensagem de erro
-    }
-  };
+  // Bloco de código aqui
 
   // Função para deletar uma pessoa pelo número de matrícula
-  // essa parte vai ser implementada
-  const handleDelete = async (matricula: string) => {
-    try {
-      // Chamada DELETE utilizando Axios para deletar a pessoa
-      await api.delete(`/pessoas/${matricula}`);
-      setRefreshFlag((prev) => !prev); // Atualiza a flag de atualização para buscar os dados novamente
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message); // Armazena a mensagem de erro
-      } else {
-        setError("Erro ao deletar registro"); // Mensagem de erro genérica
-      }
-    }
-  };
+  // Bloco de código aqui
 
   // Filtra os dados conforme os termos de busca
   const filteredData = data.filter(
@@ -188,7 +135,7 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
                 <Button
                   variant="contained"
                   color="error"
-                  onClick={() => handleDelete(person.matricula)} //mudar quando tiver usando a API do Diogo para matricula
+                  onClick={() => {}} //Chamar a função de Delete aqui passando como parâmetro o valor de matricula da pessoa
                 >
                   <Trash size={20} />
                 </Button>
@@ -255,7 +202,8 @@ export function DataTable({ refreshFlag, setRefreshFlag }: DataTableProps) {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setEditModalOpen(false)}>Cancelar</Button>
-          <Button onClick={handleSaveEdit} color="primary">
+          <Button onClick={() => {}} color="primary">
+            {/*Chamar a função de Edit neste botão para finalizar a edição */}
             Salvar
           </Button>
         </DialogActions>

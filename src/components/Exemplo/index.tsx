@@ -1,6 +1,5 @@
 // Importação de hooks do React e da instância Axios configurada
 import { useEffect, useState } from "react";
-import { api } from "../../services/api";
 import "./styles.css";
 
 /* Interfaces */
@@ -25,19 +24,9 @@ export function ExampleComponent({ onPersonAdded }: ExampleComponentProps) {
 
   /* useEffect: para obter a lista de interesses na montagem do componente. */
   useEffect(() => {
-    //essa parte vai ser implementada
-    const fetchInterests = async () => {
-      try {
-        // Chamada GET utilizando Axios para buscar a lista de interesses
-        const response = await api.get("interesses");
-        setInterests(response.data); // Atualiza o estado com os dados recebidos
-        console.log(response.data); // Log dos dados recebidos para depuração
-      } catch (error) {
-        console.log("Erro ao buscar os interesses", error); // Log de erro no console
-      }
-    };
-
-    fetchInterests();
+    //Função que vai listar os interesses para o select
+    //Bloco de código aqui
+    // Chamar a função criada
   }, []); // Array de dependências vazio: executa apenas na montagem inicial do componente.
 
   /* handleChange para atualizar o estado */
@@ -49,34 +38,19 @@ export function ExampleComponent({ onPersonAdded }: ExampleComponentProps) {
   // Função para lidar com o envio do formulário
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault(); // Previne o comportamento padrão do formulário de recarregar a página
-    // essa parte vai ser implementada
-    const newPerson = {
-      nome,
-      matricula,
-      areaInteresse,
-    };
 
-    // essa parte vai ser implementada
-    try {
-      console.log(newPerson); // Log dos dados da nova pessoa para depuração
-      // Chamada POST utilizando Axios para enviar os dados da nova pessoa para a API
-      const response = await api.post("pessoas", newPerson);
-      console.log("Pessoa criada!:", response.data); // Log da resposta da API para depuração
-      // Chama o callback para informar que uma nova pessoa foi adicionada
-      onPersonAdded();
-      // Limpando os campos do formulário após o envio bem-sucedido
-      setMatricula("");
-      setName("");
-      setAreaInteresse("");
-    } catch (error) {
-      console.error("Houve um erro criando a pessoa:", error); // Log de erro no console
-    }
+    //Criar uma variável para armazenas os estados dos inputs do formulário
+    //Crie a variável aqui
+
+    // Lógica para POST de nova pessoa, pode usar a variável criada com os estados do campo do formulário
+    // Bloco de código POST
   };
 
   return (
     <div className="container">
       <h2>Criar novo Aluno</h2>
       <form onSubmit={handleSubmit}>
+        {/*Necesário finalizar a função handleSubmit para enviar nova pessoas */}
         <div className="form-group">
           <label htmlFor="personMatricula">Matrícula</label>
           <input
@@ -126,7 +100,6 @@ export function ExampleComponent({ onPersonAdded }: ExampleComponentProps) {
             </>
           )}
         </div>
-
         <div className="btn-container">
           <button type="submit" className="btn btn-primary">
             Cadastrar Pessoa
