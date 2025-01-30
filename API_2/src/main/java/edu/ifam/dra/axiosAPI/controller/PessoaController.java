@@ -72,7 +72,7 @@ public class PessoaController {
         }
     }
 
-    @PutMapping
+    @PutMapping(value = "/{matricula}")
     public ResponseEntity<PessoaOutputDTO> update(@RequestBody PessoaInputDTO pessoaInputDTO){
         try{
             PessoaOutputDTO pessoaOutputDTO = pessoaService.update(pessoaInputDTO);

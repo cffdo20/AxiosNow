@@ -2,6 +2,7 @@ package edu.ifam.dra.axiosAPI.service;
 
 import edu.ifam.dra.axiosAPI.dto.PessoaInputDTO;
 import edu.ifam.dra.axiosAPI.dto.PessoaOutputDTO;
+import edu.ifam.dra.axiosAPI.model.Interesse;
 import edu.ifam.dra.axiosAPI.model.Pessoa;
 import edu.ifam.dra.axiosAPI.repository.InteresseRepository;
 import edu.ifam.dra.axiosAPI.repository.PessoaRepository;
@@ -56,10 +57,11 @@ public class PessoaService {
     }
 
     public PessoaOutputDTO update(PessoaInputDTO pessoaInputDTO){
-        Pessoa pessoa = pessoaInputDTO.build(interesseRepository);
-        if(pessoaRepository.existsById(pessoa.getId()))
-            return new PessoaOutputDTO(pessoaRepository.save(pessoa));
-        else
-            return null;
+        Pessoa pessoaAtual = pessoaRepository.findByMatricula(pessoaInputDTO.getMatricula());
+        Long id = pessoaAtual.getId();
+        Interesse interesse = interesseRepository.findByNome(pessoaInputDTO.getAreaInteresse());
+        Pessoa pessoaNovo = new Pessoa(id, pessoaInputDTO, interesse);
+        System.out.println(pessoaNovo.getId() + " - " + pessoaNovo.getMatricula() + " - " + pessoaNovo.getNome() + " - " + pessoaNovo.getInteresse().getAreaDeInteresse());
+        return new PessoaOutputDTO(pessoaRepository.save(pessoaNovo));
     }
 }

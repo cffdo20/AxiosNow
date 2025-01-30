@@ -1,5 +1,7 @@
 package edu.ifam.dra.axiosAPI.model;
 
+import edu.ifam.dra.axiosAPI.dto.PessoaInputDTO;
+import edu.ifam.dra.axiosAPI.repository.InteresseRepository;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,6 +20,15 @@ public class Pessoa {
     @ManyToOne
     @JoinColumn(name = "interesse", nullable = false)
     private Interesse interesse;
+
+    public Pessoa(){}
+
+    public Pessoa(Long id, PessoaInputDTO pessoaInputDTO, Interesse interesse){
+        this.id = id;
+        this.nome = pessoaInputDTO.getNome();
+        this.interesse = interesse;
+        this.matricula = pessoaInputDTO.getMatricula();
+    }
 
     public Long getId() {
         return id;
